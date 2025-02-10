@@ -1,0 +1,31 @@
+# Assign all the companies as "long term potential", "decent potential", or "unacceptable" based on the average employee tenure.
+SELECT company_name,
+CASE 
+WHEN avg_employee_tenure >= 7 THEN 'long term potential'
+WHEN avg_employee_tenure >= 6 THEN 'decent potential'
+ELSE 'unacceptable'
+END as career_potential
+FROM fortune_companies ;
+
+#List all companies where their average revenue is at least $200 billion
+SELECT company_name, ROUND(AVG(revenue),1) as avg_revenue_billions
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_revenue_billions >= 200
+;
+# List all companies have at least 15 days paid off and offer healthcare benefits
+SELECT company_name
+FROM fortune_companies
+WHERE paid_time_off_days >=15
+AND healthcare_benefits = 1
+;
+#List all companies with at least 8 weeks of maternity leave and in order of most time offered to least time offered
+SELECT company_name 
+FROM fortune_companies
+WHERE maternity_leave_weeks >= 8 
+ORDER BY maternity_leave_weeks desc
+;
+#Group all companies by industries
+SELECT company_name
+FROM fortune_companies
+GROUP BY industry;
